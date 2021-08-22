@@ -39,6 +39,7 @@ public class RecordTransformationApp {
                 .read()
                 .format("csv")
                 .option("header", "true")
+                .option("encoding", "cp1252") // otherwise UTF-8 would be assumed
                 .option("inferSchema", "true")
                 .load("data/census/PEP_2017_PEPANNRES.csv");
 
@@ -142,5 +143,9 @@ public class RecordTransformationApp {
         Dataset<Row> MassachusettsDf = spark.sql("select * from population where stateId = 25 order by growth desc");
         System.out.println("number of Massachusetts county records = " + MassachusettsDf.count());
         MassachusettsDf.show(39);
+
+        Dataset<Row> PuertoRicoDf = spark.sql("select * from population where stateId = 72 order by growth desc");
+        System.out.println("number of Massachusetts county records = " + PuertoRicoDf.count());
+        PuertoRicoDf.show(39);
     }
 }
